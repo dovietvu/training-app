@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Biển báo giao thông</title>
+  <title>Mũi tên biển báo</title>
   <style>
     html, body {
       margin: 0;
@@ -19,10 +19,10 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 24vw;
-      height: 24vw;
-      max-width: 160px;
-      max-height: 160px;
+      width: 20vw;            /* khá hẹp ngang */
+      height: 80vh;           /* gần sát đỉnh và đáy */
+      max-width: 100px;
+      max-height: 90%;
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
@@ -48,15 +48,15 @@
     const arrowEl = document.getElementById('arrow');
 
     const svgUp = `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="50,10 90,50 70,50 70,90 30,90 30,50 10,50" fill="white"/>
+      <svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="50,0 100,100 70,100 70,200 30,200 30,100 0,100" fill="white"/>
       </svg>
     `;
 
     const svgDown = `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <g transform="rotate(180,50,50)">
-          <polygon points="50,10 90,50 70,50 70,90 30,90 30,50 10,50" fill="white"/>
+      <svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+        <g transform="rotate(180,50,100)">
+          <polygon points="50,0 100,100 70,100 70,200 30,200 30,100 0,100" fill="white"/>
         </g>
       </svg>
     `;
@@ -78,4 +78,3 @@
   </script>
 </body>
 </html>
-
