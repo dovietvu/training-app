@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thin & Spaced Traffic Arrow</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%; width: 100%;
+      transition: background-color 0.5s ease;
+    }
+    /* Mũi tên chính giữa, chừa 5vh ở trên dưới, thon hơn */
+    #arrow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      height: 90vh;    /* chiếm 90% chiều cao, chừa 5% mỗi cạnh */
+      width: 45vh;     /* giữ tỷ lệ 1:2, nhưng nhỏ hơn trước */
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    #arrow.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="arrow"></div>
+  <script>
+    const colors = ['red','green'];
+    const arrowEl = document.getElementById('arrow');
+
+    const svgUp = `
+      <svg width="100%" height="100%" viewBox="0 0 100 200"
+           xmlns="http://www.w3.org/2000/svg">
+        <polygon points="50,0 100,100 70,100 70,200 30,200 30,100 0,100"
+                 fill="white"/>
+      </svg>`;
+    const svgDown = `
+      <svg width="100%" height="100%" viewBox="0 0 100 200"
+           xmlns="http://www.w3.org/2000/svg">
+        <g transform="rotate(180,50,100)">
+          <polygon points="50,0 100,100 70,100 70,200 30,200 30,100 0,100"
+                   fill="white"/>
+        </g>
+      </svg>`;
+
+    function update() {
+      // Đổi nền đỏ/xanh
+      document.body.style.backgroundColor =
+        colors[Math.floor(Math.random()*colors.length)];
+
+      // 50% hiện mũi tên, 50% ẩn
+      if (Math.random() < 0.5) {
+        arrowEl.innerHTML = (Math.random() < 0.5) ? svgUp : svgDown;
+        arrowEl.classList.add('visible');
+      } else {
+        arrowEl.classList.remove('visible');
+      }
+    }
+
+    update();
+    setInterval(update, 2000);
+  </script>
+</body>
+</html>
