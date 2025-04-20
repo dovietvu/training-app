@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mũi tên biển báo</title>
+  <title>Ô vuông định hướng</title>
   <style>
     html, body {
       margin: 0;
@@ -14,62 +14,53 @@
       transition: background-color 0.5s ease;
     }
 
-    #arrow {
+    #square {
       position: absolute;
-      top: 50%;
+      width: 15px;
+      height: 15px;
+      background-color: white;
       left: 50%;
-      transform: translate(-50%, -50%);
-      width: 20vw;            /* khá hẹp ngang */
-      height: 80vh;           /* gần sát đỉnh và đáy */
-      max-width: 100px;
-      max-height: 90%;
+      transform: translateX(-50%);
+      transition: top 0.3s ease, bottom 0.3s ease, opacity 0.3s ease;
+    }
+
+    #square.hidden {
       opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    #arrow.visible {
-      opacity: 1;
-    }
-
-    svg {
-      width: 100%;
-      height: 100%;
-      display: block;
     }
   </style>
 </head>
 <body>
 
-  <div id="arrow"></div>
+  <div id="square"></div>
 
   <script>
     const colors = ['red', 'green'];
-    const arrowEl = document.getElementById('arrow');
-
-    const svgUp = `
-      <svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="50,0 100,100 70,100 70,200 30,200 30,100 0,100" fill="white"/>
-      </svg>
-    `;
-
-    const svgDown = `
-      <svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
-        <g transform="rotate(180,50,100)">
-          <polygon points="50,0 100,100 70,100 70,200 30,200 30,100 0,100" fill="white"/>
-        </g>
-      </svg>
-    `;
+    const square = document.getElementById('square');
 
     function update() {
+      // 1. Đổi màu nền
       const color = colors[Math.floor(Math.random() * colors.length)];
       document.body.style.backgroundColor = color;
 
-      if (Math.random() < 0.5) {
-        arrowEl.innerHTML = (Math.random() < 0.5) ? svgUp : svgDown;
-        arrowEl.classList.add('visible');
+      // 2. Xóa vị trí cũ
+      square.style.top = '';
+      square.style.bottom = '';
+      square.classList.remove('hidden');
+
+      // 3. Ngẫu nhiên hiển thị theo quy tắc
+      const rand = Math.random();
+      if (rand < 0.33) {
+        // Không mũi tên -> ô vuông ở giữa
+        square.style.top = '50%';
+        square.style.transform = 'translate(-50%, -50%)';
+      } else if (rand < 0.66) {
+        // Mũi tên lên -> ô vuông sát mép trên
+        square.style.top = '10px';
+        square.style.transform = 'translateX(-50%)';
       } else {
-        arrowEl.classList.remove('visible');
+        // Mũi tên xuống -> ô vuông sát mép dưới
+        square.style.bottom = '10px';
+        square.style.transform = 'translateX(-50%)';
       }
     }
 
